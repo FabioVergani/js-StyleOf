@@ -1,0 +1,121 @@
+(function(){'use strict';
+ var e=arguments[0];
+ if(e===undefined){
+	return;
+ }else{
+	var d=e.ownerDocument,isGlobal=(d===undefined?(d=e.document,1):0),
+	dE=d.documentElement,
+	dV=d.defaultView,
+	w=dV.window,
+	O=w.Object,
+	Inextensible=O.preventExtensions,
+	/*bind:<polyfill>*/
+	create=O.create.bind(null,null),
+	$id=d.getElementById.bind(d),
+	dict=function(){
+	 var e,f=create,a=arguments,n=a.length;
+	 if(n===0){
+		e=f();
+	 }else{
+		e={};
+		for(var o=e, g=f, m=a, l=n, i=0; i<l; i++){
+		 o[m[i]]={enumerable:true,configurable:true,value:g()};//writable:true,
+		};
+		e=f(e);
+	 };
+	 return e;
+	},
+	endvars;
+
+
+	e=null;
+	//console.log(isGlobal,w,d,dE);
+
+	var StyleOf=function(theNode){
+	 var node=theNode;
+	 if(node!==null){
+		var dicStyle=Inextensible(dict('Computed','Inline')),
+		storeStyle=function(b,a){
+		 for(var p,o=dicStyle[b],m=a,l=m.length,i=0;i<l;i++){p=m[i];o[p]=m.getPropertyValue(p);};
+		};
+
+		storeStyle('Computed',w.getComputedStyle(node,null));
+		if(node.hasAttribute('style')){
+			storeStyle('Inline',node.style);
+		}else{
+			delete dicStyle.Inline;
+		};
+		return dicStyle;
+	 };
+
+	};
+	//
+	//dict=null;
+	//Run:
+	console.log(StyleOf(document.body));//$id('pippo')
+ };
+})(window);
+//======================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+// sanitize property name to camelCase
+    styleProp = styleProp.replace(/\-(\w)/g, function(str, letter) {
+      return letter.toUpperCase();
+    });
+ styleProp = styleProp.replace(/([A-Z])/g, "-$1").toLowerCase();
+  styleProp = styleProp.replace(/\-(\w)/g, function(str, letter) {
+
+
+
+
+ else if(oElm.currentStyle){
+        strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
+            return p1.toUpperCase();
+        });
+        strValue = oElm.currentStyle[strCssRule];
+    }
+    return strValue;
+
+
+//Computed:
+{};
+
+	var pseudo = null,
+		style, f = ,
+
+	if(f) {
+		style = f(e, null);
+		for(var i = 0, l = style.length; i < l; i++) {
+
+			var val =
+			obj[prop] = val;
+		}
+		return obj;
+	}
+	// Style from style attribute
+	if(style = e.style) {
+		for(var prop in style) {
+			if(typeof style[prop] != 'function') {
+				obj[prop] = style[prop];
+			}
+		}
+		return obj;
+	}
+	return obj;
+*/
